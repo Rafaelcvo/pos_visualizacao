@@ -67,10 +67,9 @@ Agora que já temos os dados carregados no R, podermos ir direto para os gráfic
 ```{r}
 barplot(olimpiadas$total)
 ```
+
 Nada mal, hein?! Mas podemos fazer melhor! 
 Use o argumento *names.arg* no *barplot()* para especificar os nomes de cada barra, ou seja, o ano de cada olimpíada.
-
-
 
 ```{r}
 
@@ -79,10 +78,6 @@ barplot(olimpiadas$total, names.arg = olimpiadas$ano)
 ```
 
 Você pode aplicar vários outros [argumentos](https://www.rdocumentation.org/packages/graphics/versions/3.6.1/topics/barplot) em sua função, por exemplo, você pode adicionar rótulos nos eixos, alterar bordas e alterar cores.
-
-
-
-
 
 ```{r}
 
@@ -187,25 +182,23 @@ barplot(olimpiadas$total, names.arg = olimpiadas$ano, col=cores_preenchimento, b
 
 3. Exporte os três gráficos de barras (ouro, prata e bronze) para o formato de imagem .png e utilizando a sintaxe rmarkdown os adicione neste documento lado a lado.
 
-![](ouro.png)
-
-![](prata.png)
-
-![](bronze.png)
+| Ouro | Prata | Bronze |
+|:----:|:-----:|:------:|
+|![](ouro.png)|![](prata.png)|![](bronze.png)
 
 
 4. Analise, compare, pense e responda:
 
-  + Existe algum padrão visual nos gráficos? Quais são?
-  + O que você aprendeu com os gráficos?
-  + Quais insights você obteve?
-
-
-
-
-
-
-
+  + Existe algum padrão visual nos gráficos? Quais são?  
+    Houve um crescimento no número de medalhas que o Brasil ganhou a partir do ano de 1948 até 2012.
+  
+  + O que você aprendeu com os gráficos?  
+    Existe uma melhoria no desempenho do Brasil.
+  
+  + Quais insights você obteve?  
+    O Brasil ganhou mais medalhas de bronze do que ouro e prata até 1980.  
+    Entre 1988 e 1996 o Brasil ganhou poucas medalhas.  
+    Houve ano em que o Brasil ganho apenas medalha de ouro.
 
 
 
