@@ -60,7 +60,7 @@ Senador que mais teve reembolso.
 top_reemb <- group_by(df_gastos, SENADOR) %>%
   summarise(Total = sum(VALOR_REEMBOLSADO)) %>%
   arrange(desc(Total))
-top_reemb[1,]
+top_reemb
 ```
 
 Gráfico em linha com evolução do Senador com maior valor total reembolsado.
@@ -78,6 +78,13 @@ senador %>%
 
 ```
 
+```{r}
+top_reemb %>%
+  top_n(200, Total) %>%
+  ggplot(aes(x=Total)) + 
+  geom_histogram(fill="skyblue")
+
+```
 
 
 
