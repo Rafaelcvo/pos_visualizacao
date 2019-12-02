@@ -1,0 +1,30 @@
+---
+title: "Exer2_graficos"
+author: "Rafael"
+date: "11/30/2019"
+output: html_document
+---
+```{r}
+library(ggplot2)
+```
+
+
+```{r}
+df <- read.csv2('CEAPS.csv')
+df
+```
+
+```{r}
+
+```
+
+
+```{r}
+library('dplyr')
+
+df %>%
+  group_by(SENADOR) %>%
+  summarise(soma = sum(VALOR_REEMBOLSADO))
+
+```
+
