@@ -8,10 +8,10 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
-Links de referências.
-https://www12.senado.leg.br/transparencia/dados-abertos-transparencia/dados-abertos-ceaps
 
-Lendo o arquivo
+
+Lendo o arquivo e gerando um dataset com as princiapais variaveis.
+
 ```{r}
 df <- read.csv2('datasets/CEAPS.csv', encoding="Latin-ASCII",stringsAsFactors = FALSE)
 
@@ -23,9 +23,10 @@ df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
 df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
 ```
 
+Verificando a consistencia das informações.
 
 ```{r}
-total <- filter(df_gastos, SENADOR == "FERNANDO COLLOR", ANO == 2009)
+total <- filter(df_gastos, SENADOR == "FERNANDO COLLOR", ANO == 2013)
 sum(total$VALOR_REEMBOLSADO)
 ```
 
@@ -37,7 +38,13 @@ df_total <- group_by(df_gastos,ANO, SENADOR) %>%
 filter(df_total, SENADOR == "FERNANDO COLLOR")
 ```
 
+Plotagem das informações.
 
+```{r}
+
+
+df_total
+```
 
 
 
