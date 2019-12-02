@@ -1,30 +1,52 @@
 ---
 title: "Exer2_graficos"
-author: "Rafael"
 date: "11/30/2019"
 output: html_document
 ---
 ```{r}
+library(dplyr)
+library(tidyr)
 library(ggplot2)
 ```
+Links de referências.
+https://www12.senado.leg.br/transparencia/dados-abertos-transparencia/dados-abertos-ceaps
 
-
+Lendo o arquivo
 ```{r}
-df <- read.csv2('CEAPS.csv')
-df
+df <- read.csv2('datasets/CEAPS.csv', encoding="Latin-ASCII",stringsAsFactors = FALSE)
+
+df_gastos <- df %>%
+  select(ANO, MES, SENADOR, VALOR_REEMBOLSADO)
+
+df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
+
+df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
+
+group_by(df_gastos, SENADOR) %>% 
+  summarise(Total = sum(VALOR_REEMBOLSADO)) %>%
+  arrange(desc(Total))
+
+df[df$SENADOR == "RICARDO FERRAÇO"]
+
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```{r}
-
-```
-
-
-```{r}
-library('dplyr')
-
-df %>%
-  group_by(SENADOR) %>%
-  summarise(soma = sum(VALOR_REEMBOLSADO))
 
 ```
 
