@@ -23,6 +23,38 @@ df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
 df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
 ```
 
+
+```{r}
+g_2018 <- filter(df_gastos, ANO == 2018)
+g_2018 <- group_by(g_2018, SENADOR) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO))
+g_2018
+```
+
+```{r}
+g_2018_ord <- g_2018[order(-g_2018$Total),]
+ggplot(data = g_2018_ord[1:10,], aes(x = reorder(SENADOR, Total), y = Total)) +  
+  geom_bar(stat = "identity") +
+  coord_flip() 
+
+```
+
+
+```{r}
+
+g_2018 %>%
+  top_n(10, Total) %>%
+  ggplot(aes(x=reorder(SENADOR, Total), y = Total)) + 
+  geom_col(aes(fill = Total)) +
+  coord_flip()
+
+```
+
+
+
+
+
+
 Verificando a consistencia das informações.
 
 ```{r}
@@ -31,37 +63,8 @@ sum(total$VALOR_REEMBOLSADO)
 ```
 
 ```{r}
-df_total <- group_by(df_gastos,ANO, SENADOR) %>% 
-  summarise(Total = sum(VALOR_REEMBOLSADO)) %>%
-  arrange(desc(Total))
-
-filter(df_total, SENADOR == "FERNANDO COLLOR")
-```
-
-Plotagem das informações.
-
-```{r}
-
-
-df_total
+filter(df_total_ano, SENADOR == "FERNANDO COLLOR")
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```{r}
-
-```
 
