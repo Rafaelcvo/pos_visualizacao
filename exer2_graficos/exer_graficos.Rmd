@@ -42,6 +42,7 @@ ggplot(data = g_2018_ord[1:10,], aes(x = reorder(SENADOR, Total), y = Total)) +
 
 ```
 
+Outra maneira de fazer os top 10.
 
 ```{r}
 g_2018 %>%
@@ -72,9 +73,11 @@ senador <- df_gastos %>%
 
 senador %>%
   ggplot() + 
-  geom_line(aes(x=ANO, y=Total/1000)) +
-  xlim(2007,2020) + ylab("Valores em K")
+  geom_line(aes(x=ANO, y=Total/1000), size=1) +
+  xlim(2007,2020) + ylab("Valores em K") 
+
 ```
+
 
 
 
