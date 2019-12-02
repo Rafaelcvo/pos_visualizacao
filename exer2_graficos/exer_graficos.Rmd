@@ -4,9 +4,11 @@ date: "11/30/2019"
 output: html_document
 ---
 ```{r}
+
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+
 ```
 
 
@@ -31,6 +33,7 @@ g_2018 <- group_by(g_2018, SENADOR) %>%
 g_2018
 ```
 
+Os 10 Senadores que mais tevera
 ```{r}
 g_2018_ord <- g_2018[order(-g_2018$Total),]
 ggplot(data = g_2018_ord[1:10,], aes(x = reorder(SENADOR, Total), y = Total)) +  
@@ -41,30 +44,41 @@ ggplot(data = g_2018_ord[1:10,], aes(x = reorder(SENADOR, Total), y = Total)) +
 
 
 ```{r}
-
 g_2018 %>%
   top_n(10, Total) %>%
-  ggplot(aes(x=reorder(SENADOR, Total), y = Total)) + 
+  ggplot(aes(x=reorder(SENADOR, Total), y = Total),) + 
   geom_col(aes(fill = Total)) +
+  xlab("Senadores") + ylab("Valores Reembolsados em 2018") +
   coord_flip()
 
 ```
 
-
-
-
-
-
-Verificando a consistencia das informações.
+Senador que mais teve reembolso.
 
 ```{r}
-total <- filter(df_gastos, SENADOR == "FERNANDO COLLOR", ANO == 2013)
-sum(total$VALOR_REEMBOLSADO)
+top_reemb <- group_by(df_gastos, SENADOR) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO)) %>%
+  arrange(desc(Total))
+top_reemb[1,]
 ```
 
+Gráfico em linha com evolução do Senador com maior valor total reembolsado.
+
 ```{r}
-filter(df_total_ano, SENADOR == "FERNANDO COLLOR")
+senador <- df_gastos %>%
+  filter(SENADOR == top_reemb$SENADOR[1]) %>%
+  group_by(ANO) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO))
+
+senador %>%
+  ggplot() + 
+  geom_line(aes(x=ANO, y=Total/1000)) +
+  xlim(2007,2020) + ylab("Valores em K")
 ```
+
+
+
+
 
 
 
