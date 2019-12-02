@@ -21,14 +21,22 @@ df_gastos <- df %>%
 df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
 
 df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
+```
 
-group_by(df_gastos, SENADOR) %>% 
+
+```{r}
+total <- filter(df_gastos, SENADOR == "FERNANDO COLLOR", ANO == 2009)
+sum(total$VALOR_REEMBOLSADO)
+```
+
+```{r}
+df_total <- group_by(df_gastos,ANO, SENADOR) %>% 
   summarise(Total = sum(VALOR_REEMBOLSADO)) %>%
   arrange(desc(Total))
 
-df[df$SENADOR == "RICARDO FERRAÇO"]
-
+filter(df_total, SENADOR == "FERNANDO COLLOR")
 ```
+
 
 
 
