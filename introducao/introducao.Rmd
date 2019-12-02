@@ -193,12 +193,33 @@ barplot(olimpiadas$total, names.arg = olimpiadas$ano, col=cores_preenchimento, b
     Houve um crescimento no número de medalhas que o Brasil ganhou a partir do ano de 1948 até 2012.
   
   + O que você aprendeu com os gráficos?  
-    Existe uma melhoria no desempenho do Brasil.
+    Existe uma melhoria na quantidade de medalhas que que o Brasil ganhou.
   
   + Quais insights você obteve?  
     O Brasil ganhou mais medalhas de bronze do que ouro e prata até 1980.  
     Entre 1988 e 1996 o Brasil ganhou poucas medalhas.  
     Houve ano em que o Brasil ganho apenas medalha de ouro.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
