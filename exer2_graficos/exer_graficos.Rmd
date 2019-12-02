@@ -23,6 +23,8 @@ df_gastos <- df %>%
 df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
 
 df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
+
+sum(is.na(df))
 ```
 
 
@@ -78,16 +80,64 @@ senador %>%
 
 ```
 
-```{r}
-top_reemb %>%
-  top_n(200, Total) %>%
-  ggplot(aes(x=Total)) + 
-  geom_histogram(fill="skyblue")
+Comparação entre os 3 Senadores que mais receberam reebolso.
 
+
+```{r}
+top_1 <- top_reemb[1,]
+top_2 <- top_reemb[2,]
+top_3 <- top_reemb[3,]
+
+plot_1 <- df_gastos %>%
+  filter(SENADOR == top_1$SENADOR) %>%
+  group_by(SENADOR, ANO ) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO))
+plot_2 <- df_gastos %>%
+  filter(SENADOR == top_2$SENADOR) %>%
+  group_by(SENADOR, ANO ) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO))
+plot_3 <- df_gastos %>%
+  filter(SENADOR == top_3$SENADOR) %>%
+  group_by(SENADOR, ANO ) %>%
+  summarise(Total = sum(VALOR_REEMBOLSADO))
+
+a <- ggplot(data = plot_1) + geom_line(aes(x=ANO, y=Total/1000), size=1, color="blue")  
+b <- ggplot(data = plot_2) + geom_line(aes(x=ANO, y=Total/1000), size=1, color="red")
+c <- ggplot(data = plot_3) + geom_line(aes(x=ANO, y=Total/1000), size=1, color="green")
+
+grid.arrange(a,b,c, ncol=1)
 ```
 
 
 
+```{r}
+top_reemb %>%
+  top_n(1000, Total) %>%
+  ggplot(aes(x=Total)) + 
+  geom_histogram(fill="skyblue", bins = 20)
+
+```
+
+```{r}
+top_reemb
+```
+```{r}
+top_reemb %>%
+  ggplot() +
+  geom_point(mapping = aes(x=SENADOR, y=Total))
+  
+```
+
+```{r}
+top_reemb %>%
+  top_n(5, Total) %>%
+  ggplot() +
+  geom_bar(mapping = aes(x=SENADOR, fill = SENADOR), show.legend = FALSE, width = 1) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_polar()
+  
+```
 
 
 
