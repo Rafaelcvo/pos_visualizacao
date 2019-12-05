@@ -1,0 +1,48 @@
+---
+title: "exerc2"
+author: "Rafael"
+date: "12/5/2019"
+output: html_document
+---
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+```{r setup, include=FALSE}
+df <- read.csv('amazon.csv')
+df
+```
+```{r}
+df <- filter(df, number > 0)
+df
+```
+
+```{r}
+q <- ggplot(df, aes(year, number))
+```
+
+```{r}
+q + geom_bar(stat = "identity", color='red') +
+  xlab("Ano") + ylab("Quantidade de queimadas")
+
+```
+
+
+```{r}
+ggplot(df, aes(year)) + geom_density(kernel="gaussian")
+```
+
+
+```{r}
+q + geom_line()
+```
+
+```{r}
+q + geom_jitter()
+```
+
+
+
+
+
