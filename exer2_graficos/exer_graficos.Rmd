@@ -16,16 +16,24 @@ Lendo o arquivo e gerando um dataset com as princiapais variaveis.
 
 ```{r}
 df <- read.csv2('datasets/CEAPS.csv', encoding="Latin-ASCII",stringsAsFactors = FALSE)
+df <- iconv(df, "latin1", "UTF-8")
+df$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df$VALOR_REEMBOLSADO)))
+
 
 df_gastos <- df %>%
   select(ANO, MES, SENADOR, VALOR_REEMBOLSADO)
 
-df_gastos$SENADOR <- iconv(df_gastos$SENADOR, "latin1", "UTF-8")
 
-df_gastos$VALOR_REEMBOLSADO <-as.numeric(gsub(",", ".", as.character(df_gastos$VALOR_REEMBOLSADO)))
 
 sum(is.na(df))
 ```
+
+
+
+```{r}
+df
+```
+
 
 
 ```{r}
@@ -130,7 +138,7 @@ top_reemb %>%
 
 ```{r}
 top_reemb %>%
-  top_n(5, Total) %>%
+  top_n(10, Total) %>%
   ggplot() +
   geom_bar(mapping = aes(x=SENADOR, fill = SENADOR), show.legend = FALSE, width = 1) +
   theme(aspect.ratio = 1) +
@@ -141,4 +149,11 @@ top_reemb %>%
 
 
 
+```{r}
+
+top_reemb %>%
+  top_n(5, Total) %>%
+treemap(data,index = c("SENADOR"),vSize ="Total")
+
+```
 
