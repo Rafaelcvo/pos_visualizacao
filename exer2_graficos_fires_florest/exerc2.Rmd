@@ -7,39 +7,112 @@ output: html_document
 ```{r}
 library(dplyr)
 library(ggplot2)
+library(treemap)
+
 ```
 
 ```{r setup, include=FALSE}
-df <- read.csv('amazon.csv')
-df
-```
-```{r}
-df <- filter(df, number > 0)
+df <- read.csv('amazon.csv',  encoding="latin1")
+
 df
 ```
 
-```{r}
-q <- ggplot(df, aes(year, number))
-```
-
-```{r}
-q + geom_bar(stat = "identity", color='red') +
-  xlab("Ano") + ylab("Quantidade de queimadas")
-
-```
 
 
 ```{r}
-ggplot(df, aes(year)) + geom_density(kernel="gaussian")
+ano <- df %>%
+  group_by(year) %>%
+  summarise(total = sum(number)) %>%
+  ggplot(aes(year, total))
+
 ```
 
 
 ```{r}
-q + geom_line()
+ano +
+  geom_bar(stat = "identity", fill = "red") + 
+  ylab("Total de queimadas") +
+  xlab("Ano")
+
+```
+
+
+
+
+```{r}
+ano + 
+  geom_line() + 
+  ylab("Total de queimadas") +
+  xlab("Ano")
+
 ```
 
 ```{r}
-q + geom_jitter()
+ano +
+  geom_point(color='red') +
+  geom_smooth(method = "lm") +
+  ylab("Total de queimadas") +
+  xlab("Ano")
+
+```
+
+
+
+```{r}
+df %>%
+  ggplot() +
+  geom_bar(mapping = aes(x=state, fill = state), show.legend = FALSE, width = 1) +
+  theme(aspect.ratio = 1) +
+  labs(x=NULL, y=NULL) +
+  coord_polar()
+```
+
+
+```{r}
+df %>%
+ggplot(mapping= aes(x="", y=year, fill=state)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0) + labs(x=NULL, y=NULL) 
+```
+
+
+
+```{r}
+df %>%
+  group_by(state) %>%
+  summarise(Total = sum(number)) %>%
+  top_n(10, Total) %>%
+  ggplot(aes(x=reorder(state, Total), y = Total)) + 
+  geom_col(aes(fill = Total)) + 
+  xlab("Estados") + ylab("Queimadas") + ggtitle("Top 10 estados com mais queimadas") + 
+  coord_flip()
+
+```
+
+```{r}
+df %>%
+  group_by(state) %>%
+  summarise(Total = sum(number)) %>%
+  top_n(10, Total) %>%
+  ggplot(aes(state, Total)) +
+  geom_point(aes(color=state)) +labs(x=NULL, y=NULL)
+
+```
+
+
+
+```{r}
+t <- df %>%
+  group_by(state) %>%
+  summarise(Total = sum(number)) %>%
+  top_n(4, Total)
+
+df %>%
+  filter(state == t$state) %>%
+  ggplot(aes(number,date)) +
+  geom_point() +
+  facet_wrap(~state) 
+
 ```
 
 
