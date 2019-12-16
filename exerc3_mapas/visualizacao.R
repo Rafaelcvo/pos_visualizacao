@@ -1,14 +1,8 @@
 library(igraph)
 library(networkD3)
 
+data <- read.csv('anatel_2019.csv')
 
-df <- read.csv('anatel.csv')
+data[,c('X')] <- NULL
 
-df[,c('X','DataExtracao','Mes', 'Ano')] <- NULL
-
-
-data <- df[,c('GrupoEconNorm','Motivo')]
-data
-
-simpleNetwork(data, height="100px", width="100px")
-
+simpleNetwork(data)
