@@ -3,5 +3,9 @@
 * Dashboard.
 * Gráficos em R.
 * Mapas mentais.
-* Desafio (diagrama de rede).
+* Desafio (diagrama de rede).  
+
+# Integrantes  
+
+Rafael Moreira da Costa
 

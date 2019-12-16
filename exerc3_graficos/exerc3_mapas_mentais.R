@@ -4,7 +4,7 @@
 
 
 
-# 2. [Desafio] Usando a linguagem R ou a biblioteca D3 (https://d3js.org/) 
+# 2. [Desafio] Usando a linguagem R ou a biblioteca D3 () 
 #    crie as técnicas de visualização de dados abaixo:
 # A. Mapa: dê preferência para dados do Brasil;
 # B. Visualização de Rede: utilize dados multivariados, ou seja, mapeie colunas do 
