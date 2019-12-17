@@ -6,7 +6,7 @@
 * Desafio - Diagrama de rede (Exercício 3).  
 
 # Integrantes  
-Evancleide Rodrigues de Souza
-Lídia Fernandes Magalhães
+Evancleide Rodrigues de Souza  
+Lídia Fernandes Magalhães  
 Rafael Moreira da Costa
 
